@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Dynamic Ingest API Sample: Re-transcoding Videos (Dynamic Delivery)</title>
+  <title>Ingest Profiles API Sample: Get All Profiles for an Account</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/source-code-pro" type="text/css"/>
   
@@ -15,59 +15,58 @@
 
 <body>
 
-  <section class="bcls-section">
-  <h2 id="video_data">Video data</h2>
+  <fieldset>
 
-  <p>This script expects a data set as a JSON array of objects like this:</p>
+  <legend>Input</legend>
 
-  <p>Video data:<textarea id="videoData" class="bcls-code">[
-    {
-        "name": "Oyster Catcher",
-        "id": "4752175597001"
-    },
-    {
-        "name": "Brown Pelican",
-        "id": "4752142999001"
-    },
-    {
-        "name": "Great Blue Heron",
-        "id": "4752143002001"
-    },
-    {
-        "name": "Great Horned Owl",
-        "id": "4746402489001"
-    }
-]</textarea></p>
+  <p>If you do not enter account information, a Brightcove sample account will be used.</p>
 
-  <p>This is the actual data used in this sample. You could include other metadata fields, but you would need to modify the script a little to send those with the first API call. You'll also notice that these are risky values to use for reference ids, especially
-    for a sample like this that will be run multiple times - but I am getting around the duplication issue by appending the current epoch time in milliseconds to whatever is in the data.</p>
+  <p>Account id: <input id="account_id_input" type="text" placeholder="1752604059001" /></p>
 
-  <div class="form-wrapper">
-    <fieldset class="bcls-fieldset">
-      <legend>Inputs for Dynamic Ingest</legend>
+  <p>Client id: <input id="client_id_input" type="text" size="60" placeholder="c5d0a622-5479-46d8-8d8a-5f034b943fab" /></p>
 
-      <p>Account: (defaults to Brightcove sample account) <input id="account_id" type="text" value="" name="account_id" /></p>
+  <p>Client secret: <input id="client_secret_input" type="text" size="60" placeholder="w7NQYu0vUloM4GYYy2SXAxrvyFpt8fwI35qAFZcS13-VIgs0itwKNsAwHOS80sOWKJ1BUwHIvSFG" /></p>
 
-      <p>Client id: (defaults to Brightcove sample account) <input id="client_id" type="text" value="" name="client_id" /></p>
+  <p><button class="bcls-button" id="get_profiles">Get Account Profiles</button></p>
 
-      <p>Client secret: (defaults to Brightcove sample account) <input id="client_secret" type="text" value="" name="client_secret" /></p>
+</fieldset>
 
-      <p>Ingest profile: <select id="ingest_profile_display"></select><br /> or Custom Profile: <input id="custom_profile_display" type="text" value="" name="custom_profile_display" /> (you must use the name exactly as it appears in the Video Cloud system,
-        or the request will fail)</p>
-      <p><input id="di_Submit" class="bcls-button" type="submit" value="Start Retranscoding" /></p>
-      <p>Full request URL for the API call:<br />
-        <textarea class="bcls-code" name="url" id="di_url"></textarea> (automatically generated - for information only)</p>
+<fieldset>
+  <legend>Output</legend>
 
-    </fieldset>
+  <div id="logger" style="color:rgb(237, 104, 38)">
+    <p>Waiting for input...</p>
   </div>
-</section>
 
-<section class="bcls-section">
-  <h2 id="logger">Results Log</h2>
+  <h4>Current API request</h4>
 
-  <pre class="line-numbers">
-<code id="response" class="language-json">Response will appear here... </code></pre>
-</section>
+  <pre class="bcls-code">
+  <code id="api_request_display">API request will appear here...</code></pre>
+
+  <h4>Response data</h4>
+  <h5>Profile list filters</h5>
+  <div class="list-filters">
+    <p><input id="show_all" value="show_all" type="radio" name="list_filter" checked>&nbsp;<label for="show_all">Show all</label></p>
+    <p><input id="show_standard" value="show_standard" type="radio" name="list_filter">&nbsp;<label for="show_standard">Show standard</label></p>
+    <p><input id="show_custom" value="show_custom" type="radio" name="list_filter">&nbsp;<label for="show_custom">Show custom</label></p>
+    <p><input id="show_live" value="show_live" type="radio" name="list_filter">&nbsp;<label for="show_live">Show standard Live</label></p>
+  </div>
+  <div class="list-filters">
+    <p><input id="hide_legacy" value="hide_legacy" type="radio" name="list_filter">&nbsp;<label for="hide_legacy">Show legacy only</label></p>
+    <p><input id="hide_dynamic_delivery" value="hide_dynamic_delivery" type="radio" name="list_filter">&nbsp;<label for="hide_dynamic_delivery">Show Dynamic Delivery Only</label></p>
+    <p><input id="hide_cae" value="hide_cae" type="radio" name="list_filter">&nbsp;<label for="hide_cae">Hide CAE (only)</label></p>
+    <p><input id="show_cae" value="show_cae" type="radio" name="list_filter">&nbsp;<label for="show_cae">Show CAE (only)</label></p>
+  </div>
+  <div class="list-filters">
+    <p><input id="hide_obsolete" value="hide_obsolete" type="checkbox" name="hide_obsolete" checked>&nbsp;<label for="hide_obsolete">Hide obsolete profiles</label></p>
+  </div>
+  <h5>Filtered Profile list</h5>
+  <div id="profile_list" style="padding: 1em;"></div>
+
+  <h4>Full API response</h4>
+  <pre class="bcls-code">
+  <code id="api_response">API Response will appear here...</code></pre>
+</fieldset>
   
   
 
