@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 # Dynamic Ingest API Sample: Retranscoding Videos
+=======
+# 18496-dynamic-ingest-api-sample-re-transcoding-videos-dynamic-delivery
+In this sample, you will learn how to retranscode multiple videos using the Dynamic Ingest API. To get access tokens and make the API calls, it uses a proxy built by Brightcove Learning services.  Note that this sample is for Dynamic Delivery accounts. If your account uses the legacy ingest system, see this version instead.
+>>>>>>> 53d7acec6de5425d6d597a5d3f76411fe8f4bf0b
 
 In this sample, you will learn how to retranscode multiple videos using the Dynamic Ingest API. To get access tokens and make the API calls, it uses a proxy built by Brightcove Learning services.  Note that this sample is for Dynamic Delivery accounts. If your account uses the legacy ingest system, see [this version](https://support.brightcove.com/dynamic-ingest-api-sample-re-transcoding-videos-legacy-ingest) instead.
 
